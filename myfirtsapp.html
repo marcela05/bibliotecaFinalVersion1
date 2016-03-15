@@ -1,0 +1,47 @@
+<head>
+  <title>myfirtsapp</title>
+</head>
+
+<body>
+
+	{{> navbar}}
+
+  	<h1>Events!</h1>
+
+  	<form class="col-md-4" role="search">
+        <div class="form-group">
+          <label for="search">hola</label>
+          <input type="text" class="form-control" name="search" placeholder="Search" required>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+
+  	<form id="new-form" class="col-md-4" data-toggle="validator" role="form"> 
+  		<div class="form-group">
+  			<input type="text" class="form-control" name="fupInput" placeholder="Type something" required>
+  		</div>
+  		<button type="submit" class="btn btn-primary">Save</button>
+  	</form>
+
+
+
+  		<!-- <br>
+  		<br>
+	  	<textarea id="comment" class="form-control col-sm-3" rows="5" name="comment" maxlength="120" required></textarea>
+	  	<div id="comment_feedback"></div>
+	  	<br>
+	  	<br>
+		<select class="form-control" name="fieldType" required>
+		  {{#each types}}
+		  <option value="{{this}}">{{this}}</option>
+		  {{/each}}
+		</select>
+	 	<br>
+		<ul>
+		  	{{#each items}}
+		  		<li>{{name}} ({{state}})</li>
+		  	{{/each}}
+		</ul> -->
+	
+</body>
+
