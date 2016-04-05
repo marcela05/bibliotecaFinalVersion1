@@ -36,11 +36,18 @@ if (Meteor.isClient) {
     //     event.preventDefault();
     // },
 
-    'submit #new-form': function(event, template){
+    'submit #form-a': function(event, template){
+        event.preventDefault();
+        //var _name = event.target.fupInput.value
+        var _name = $('[name="search"]').val();
+        console.log("submit a: ", _name);
+    },
+
+    'submit #form-b': function(event, template){
         event.preventDefault();
         //var _name = event.target.fupInput.value
         var _name = $('[name="fupInput"]').val();
-        console.log("submit: ", _name);
+        console.log("submit b: ", _name);
     }
   });
 }
