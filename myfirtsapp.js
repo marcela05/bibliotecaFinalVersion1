@@ -2,13 +2,40 @@ if (Meteor.isClient) {
   // counter starts at 0
   Session.setDefault('counter', 0);
 
-  Template.body.helpers({
+  Template.body.rendered = function(){
+    Session.set('name', undefined);
+    Session.set('email', undefined);
+    Session.set('comment', undefined);
+    Session.set('gender', undefined);
+  };
+
+  Template.templateA.helpers({
     gender: function () {
       return ['M', 'F']
-    }
+    },
   });
 
-  Template.body.events({
+  Template.templateB.helpers({
+
+    name: function (){
+        return Session.get('name');
+    },
+
+    email: function (){
+        return Session.get('email');
+    },
+
+    comment: function (){
+        return Session.get('comment');
+    },
+
+    genero: function (){
+        return Session.get('gen');
+    }
+
+  });
+
+  Template.templateA.events({
 
     'submit #form-a': function(event, template){
         event.preventDefault();        
@@ -21,6 +48,12 @@ if (Meteor.isClient) {
         if (gender === undefined) {
             alert("select your gender");
         } else {
+
+            Session.set('name', name);
+            Session.set('comment', comment);
+            Session.set('email', email);
+            Session.set('gen', gender);
+            
             console.log("Name: ", name);
             console.log("Comment: ", comment);
             console.log("Gender: ", gender);

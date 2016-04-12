@@ -1,74 +1,27 @@
 <head>
   <title>myfirtsapp</title>
+	
 </head>
 
 <body>
 
 <!-- 	{{> navbar}} -->
+	<h1>Events!</h1>
+	<div class="container-fluid">
+		<div class="row">
+		  	<div class="col-xs-6 col-sm-6 col-md-6 block-a">
 
-  	<h1>Events!</h1>
+			  	{{>templateA}}
+		  	
+		  	</div>
+		  	
+		  	<div class="col-xs-6 col-sm-6 col-md-6 block-b">
+		  		
+				{{>templateB}}		
 
-  	<div class="col-md-6">
-	  	<form id="form-a" class="form-horizontal">
-	        <div class="form-group ">
-	          <label for="search" class="col-sm-2 control-label">Nombre</label>
-	          <div class="col-sm-10">
-	          	<input id="name" type="text" class="form-control" name="search" placeholder="Search" required>
-	          </div>
-	        </div>
-
-
-	        <div class="form-group ">
-	          <label for="email" class="col-sm-2 control-label">Email</label>
-	          <div class="col-sm-10">
-	          	<input id="email" type="email" class="form-control" name="email" placeholder="Email..." required>
-	          </div>
-	        </div>
-
-
-			<div class="form-group ">
-	          <label for="comment" class="col-sm-2 control-label">Comment</label>
-	          <div class="col-sm-10">
-	          	<textarea id="comment" class="form-control col-sm-3" rows="10" name="comment" maxlength="120" required></textarea>
-	  			<div id="comment_feedback"></div>
-	          </div>
-	        </div>
-
-			
-			<div class="form-group ">
-	          <label for="gender" class="col-sm-2 control-label">Gender</label>
-	          <div class="col-sm-10">
-	          	<select class="form-control" name="gender" required>
-	          		<option value="">select an option</option>
-				  {{#each gender}}
-				  	<option value="{{this}}">{{this}}</option>
-				  {{/each}}
-				</select>
-	          </div>
-	        </div>
-		 	
-			<!-- <ul>
-			  	{{#each items}}
-			  		<li>{{name}} ({{state}})</li>
-			  	{{/each}}
-			</ul> -->
-
-			
-	        <button type="submit" class="btn btn-default">Submit</button>
-	    </form>
-	</div>   
-
-    <!-- <div class="col-md-6">
-	  	<form id="form-b" class="form-horizontal"> 
-	  		<div class="form-group">
-	  			<label for="search" class="col-sm-2 control-label">hola 2</label>
-	  			<div class="col-sm-10">
-	  				<input type="text" class="form-control col-sm-10" name="fupInput" placeholder="Type something" required>
-	  			</div>	
-	  		</div>
-	  		<button type="submit" class="btn btn-primary">Save</button>
-	  	</form>
-  	</div> -->
+		  	</div>
+		</div>
+	</div>
 	
 </body>
 
