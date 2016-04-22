@@ -17,21 +17,25 @@ if (Meteor.isClient) {
 
   Template.templateB.helpers({
 
-    name: function (){
-        return Session.get('name');
-    },
-
-    email: function (){
-        return Session.get('email');
-    },
-
-    comment: function (){
-        return Session.get('comment');
-    },
-
-    genero: function (){
-        return Session.get('gen');
+    users: function () {
+        return Users.find().fetch();
     }
+
+    // name: function (){
+    //     return Session.get('name');
+    // },
+
+    // email: function (){
+    //     return Session.get('email');
+    // },
+
+    // comment: function (){
+    //     return Session.get('comment');
+    // },
+
+    // genero: function (){
+    //     return Session.get('gen');
+    // }
 
   });
 
@@ -54,10 +58,14 @@ if (Meteor.isClient) {
             Session.set('email', email);
             Session.set('gen', gender);
             
-            console.log("Name: ", name);
-            console.log("Comment: ", comment);
-            console.log("Gender: ", gender);
-            console.log("Email: ", email);
+            var user = {
+                name: name,
+                email: email,
+                comment: comment,
+                gender: gender
+            };
+
+            Users.insert(user);
 
             event.target.name.value = '';
             event.target.comment.value = '';
