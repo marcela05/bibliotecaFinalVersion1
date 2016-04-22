@@ -21,22 +21,6 @@ if (Meteor.isClient) {
         return Users.find().fetch();
     }
 
-    // name: function (){
-    //     return Session.get('name');
-    // },
-
-    // email: function (){
-    //     return Session.get('email');
-    // },
-
-    // comment: function (){
-    //     return Session.get('comment');
-    // },
-
-    // genero: function (){
-    //     return Session.get('gen');
-    // }
-
   });
 
   Template.templateA.events({

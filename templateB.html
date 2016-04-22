@@ -1,20 +1,22 @@
 <template name="templateB">
 	{{#each users}}	
-		<div class="row">
-		  <div class="col-md-6">Name</div>
-		  <div class="col-md-6">{{name}}</div>
-		</div>
-		<div class="row">
-		  <div class="col-md-6">Email</div>
-		  <div class="col-md-6">{{email}}</div>
-		</div>
-		<div class="row">
-		  <div class="col-md-6">Comment</div>
-		  <div class="col-md-6">{{comment}}</div>
-		</div>
-		<div class="row">
-		  <div class="col-md-6">Gender</div>
-		  <div class="col-md-6">{{gender}}</div>
+		<div class="user">
+			<div class="row">
+			  <label class="col-xs-4 col-sm-4 col-md-4">Name</label>
+			  <div class="col-xs-8 col-sm-8 col-md-8">{{name}}</div>
+			</div>
+			<div class="row">
+			  <label class="col-xs-4 col-sm-4 col-md-4">Email</label>
+			  <div class="col-xs-8 col-sm-8 col-md-8">{{email}}</div>
+			</div>
+			<div class="row">
+			  <label class="col-xs-4 col-sm-4 col-md-4">Comment</label>
+			  <div class="col-xs-8 col-sm-8 col-md-8">{{comment}}</div>
+			</div>
+			<div class="row">
+			  <label class="col-xs-4 col-sm-4 col-md-4">Gender</label>
+			  <div class="col-xs-8 col-sm-8 col-md-8">{{gender}}</div>
+			</div>
 		</div>
 	{{/each}}
 
