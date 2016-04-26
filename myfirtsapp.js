@@ -11,16 +11,59 @@ if (Meteor.isClient) {
 
   Template.templateA.helpers({
     gender: function () {
-      return ['M', 'F']
+        // items = [
+        //     {value: 'F', selected: true},
+        //     {value: 'M', selected: false}
+        // ];
+        items = ['F', 'M'];
+        return items;
     },
+
+    userName: function(){
+        return Session.get('name');
+    },
+
+    userEmail: function(){
+        return Session.get('email');
+    },
+
+    userComment: function(){
+        return Session.get('comment');
+    },
+
+    updateUser: function () {
+        return Session.get('update');
+    }
+    // userName: function(){
+    //     return Session.set('gender', this.name);
+    // },
+
   });
 
   Template.templateB.helpers({
-
     users: function () {
         return Users.find().fetch();
     }
+  });
 
+  Template.templateB.events({
+    'click .delete': function (){
+        Users.remove(this._id);
+    },
+
+    'click .user': function (){
+        console.log("User: ", this);
+        Session.set('name', this.name);
+        Session.set('comment', this.comment);
+        Session.set('email', this.email);
+        Session.set('gender', this.gender);
+        Session.set('update', this._id);
+
+
+        //Users.update({_id: this._id}, newUser);
+        //Users.update({_id: this._id}, {$set: {name: 'Javier'}});
+
+    }
   });
 
   Template.templateA.events({
@@ -49,12 +92,17 @@ if (Meteor.isClient) {
                 gender: gender
             };
 
-            Users.insert(user);
+            var userId = Session.get('update');
+            if (userId != undefined){
+                Users.update({_id: userId}, user);
+            } else {
+                Users.insert(user);
+            }
 
             event.target.name.value = '';
             event.target.comment.value = '';
             event.target.email.value = '';
-        }        
+        }
     },
 
     'change select': function(evt) {
