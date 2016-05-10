@@ -3,68 +3,71 @@ if (Meteor.isClient) {
   Session.setDefault('counter', 0);
 
   Template.body.rendered = function(){
-    Session.set('name', undefined);
-    Session.set('email', undefined);
-    Session.set('comment', undefined);
-    Session.set('gender', undefined);
+    Session.set('nombre', undefined);
+    Session.set('ano', undefined);
+    Session.set('autor', undefined);
+    Session.set('lsbn', undefined);
+    Session.set('estado', undefined);
   };
-
   Template.templateA.helpers({
-    gender: function () {
-        // items = [
-        //     {value: 'F', selected: true},
-        //     {value: 'M', selected: false}
-        // ];
-        items = ['F', 'M'];
-        return items;
+    userNombre: function(){
+        return Session.get('nombre');
     },
 
-    userName: function(){
-        return Session.get('name');
+    userAno: function(){
+        return Session.get('ano');
     },
 
-    userEmail: function(){
-        return Session.get('email');
+    userAutor: function(){
+        return Session.get('autor');
     },
-
-    userComment: function(){
-        return Session.get('comment');
+    userLsbn: function(){
+        return Session.get('lsbn');
     },
-
-    updateUser: function () {
-        return Session.get('update');
-    }
-    // userName: function(){
-    //     return Session.set('gender', this.name);
-    // },
+    userEstado: function () {
+        return Session.get('estado');
+    },
 
   });
 
   Template.templateB.helpers({
     users: function () {
         return Users.find().fetch();
-    }
+    },
+    libros: function () {
+        return Libros.find().fetch();
+    },
+    userListarLibros: function () {
+        return Session.get('listarLibro');
+    },
+    userListarEstudiantes: function () {
+        return Session.get('listarEstudiante');
+    },
   });
 
-  Template.templateB.events({
-    'click .delete': function (){
-        Users.remove(this._id);
+   Template.templateC.helpers({
+    userNombre2: function(){
+        return Session.get('nombre2');
     },
 
-    'click .user': function (){
-        console.log("User: ", this);
-        Session.set('name', this.name);
-        Session.set('comment', this.comment);
-        Session.set('email', this.email);
-        Session.set('gender', this.gender);
-        Session.set('update', this._id);
+    userEdad: function(){
+        return Session.get('edad');
+    },
 
-
-        //Users.update({_id: this._id}, newUser);
-        //Users.update({_id: this._id}, {$set: {name: 'Javier'}});
-
+    userCodigo: function(){
+        return Session.get('codigo');
     }
   });
+
+    Template.templateD.helpers({
+
+       updateEstudiante: function () {
+        return Session.get('update');
+    },
+        updateLibro: function () {
+        return Session.get('update2');
+    }
+    });
 
   Template.templateA.events({
 
@@ -72,36 +75,39 @@ if (Meteor.isClient) {
         event.preventDefault();        
         
         var name = event.target.name.value;
-        var comment = event.target.comment.value;
-        var email = event.target.email.value;
-        var gender = Session.get('gender');
+        var ano = event.target.ano.value;
+        var lsbn = event.target.lsbn.value;
+        var autor = event.target.autor.value;
+        var estado = Session.get('estado');
 
-        if (gender === undefined) {
-            alert("select your gender");
+        if (estado === undefined) {
+            alert("Selecciona algún estado");
         } else {
-
             Session.set('name', name);
-            Session.set('comment', comment);
-            Session.set('email', email);
-            Session.set('gen', gender);
+            Session.set('ano', ano);
+            Session.set('lsbn', lsbn);
+            Session.set('autor', autor);
+            Session.set('estado', estado);
             
             var user = {
                 name: name,
-                email: email,
-                comment: comment,
-                gender: gender
+                ano: ano,
+                lsbn: lsbn,
+                autor: autor,
+                estado: estado
             };
+             Users.insert(user);
+            // var userId = Session.get('update');
+            // if (userId != undefined){
+            //     Users.update({_id: userId}, user);
+            // } else {
+               
+            //     console.log("Este es el libro: ", user);
 
-            var userId = Session.get('update');
-            if (userId != undefined){
-                Users.update({_id: userId}, user);
-            } else {
-                Users.insert(user);
-            }
+            // }
 
             event.target.name.value = '';
-            event.target.comment.value = '';
-            event.target.email.value = '';
+            event.target.autor.value = '';
         }
     },
 
@@ -109,10 +115,10 @@ if (Meteor.isClient) {
         evt.preventDefault();
         var newValue = $(evt.target).val();
 
-        Session.set('gender', newValue);
+        Session.set('estado', newValue);
 
-        console.log("value: ", newValue);
-        if (newValue === 'F') {
+        console.log("El estado es: ", newValue);
+        if (newValue === 'Disponible') {
             //alert('Es mujer');
         } else {
             
@@ -127,7 +133,7 @@ if (Meteor.isClient) {
 
     'blur #name': function(event) {
         event.preventDefault();
-        var _name = $('[name="search"]').val();
+        var _name = $('[name="name"]').val();
         console.log("blur name", _name);
     },
 
@@ -149,6 +155,117 @@ if (Meteor.isClient) {
         console.log("submit b: ", _name);
     }
   });
+    Template.templateB.events({
+    'click .delete': function (){
+        Users.remove(this._id);
+        Libros.remove(this._id)
+    },
+
+    'click .user': function (){
+        console.log("User: ", this);
+        Session.set('nombre', this.name);
+        Session.set('ano', this.ano);
+        Session.set('autor', this.autor);
+        Session.set('lsbn', this.lsbn);
+        Session.set('estado', this.estado);
+        Session.set('update', this._id);
+    },
+    'click .libro': function (){
+        console.log("Libro: ", this);
+        Session.set('nombre2', this.name);
+        Session.set('edad', this.edad);
+        Session.set('codigo', this.codigo);
+        Session.set('update2', this._id);
+    },
+    'click .listarLibro': function(event, template){
+        event.preventDefault();
+            Session.set('listarLibro', true);
+            Session.set('listarEstudiante', false);
+            console.log("submit lib bbbbbbb: ", Session.get('listarLibro'));
+    },
+    'click .listarEstudiante': function(event, template){
+        event.preventDefault();
+       Session.set('listarLibro', false);
+        Session.set('listarEstudiante', true);
+        console.log("submit est bbbbbbb: ", 2);
+    },
+
+  });
+    Template.templateC.events({
+
+    'submit #form-c': function(event, template){
+        event.preventDefault();         
+        var name = event.target.name.value;
+        var edad = event.target.edad.value;
+        var codigo = event.target.codigo.value;
+        Session.set('nombre2', name);
+        Session.set('edad', edad);
+        Session.set('codigo', codigo);
+            
+            var libro = {
+                name: name,
+                edad: edad,
+                codigo: codigo,
+            };
+        var libroId = Session.get('update');
+            if (libroId != undefined){
+                Libros.update({_id: libroId}, libro);
+            } else {
+                Libros.insert(libro);
+                console.log("Este es el libro: ", libro);
+
+            }
+        console.log("Este es el estudiante: ", libro);
+            event.target.name.value = '';
+            event.target.edad.value = '';
+    },
+    });
+
+    Template.templateD.events({
+
+        'click .updateLibro': function(event, template){
+            event.preventDefault();
+            var userId = Session.get('update');
+            console.log("Nuevooooo user", userId);
+            console.log("name user", name);
+            var name= document.forms["form-a"].elements[0].value;
+            var ano = document.forms["form-a"].elements[1].value;
+            var autor = document.forms["form-a"].elements[2].value;
+            var lsbn = document.forms["form-a"].elements[3].value;
+            var estado = Session.get('estado');
+
+            var user = {
+                name: name,
+                ano: ano,
+                lsbn: lsbn,
+                autor: autor,
+                estado: estado
+            };
+            if (userId != undefined){
+                Users.update({_id: userId}, user);
+                console.log("Nuevooooo user", user);
+            }
+        },      
+        'click .updateEstudiante': function(event, template){
+            event.preventDefault();
+            var libroId = Session.get('update2');
+            console.log("Nuevooooo id  est", libroId);
+            var name= document.forms["form-c"].elements[0].value;
+            var edad = document.forms["form-c"].elements[1].value;
+            var codigo = document.forms["form-c"].elements[2].value;
+
+            var libro = {
+                name: name,
+                edad: edad,
+                codigo: codigo
+            };
+             if (libroId != undefined){
+                Libros.update({_id: libroId}, libro);
+                console.log("Nuevooooo libro", libro);
+            }
+        },
+    });
+
 }
 
 if (Meteor.isServer) {
